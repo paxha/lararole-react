@@ -41,11 +41,11 @@ const NewModuleForm = (id) => {
     const [form] = Form.useForm();
 
     const onFinish = values => {
-        axios.post('/api/module/' + (id.id ? id.id + '/' : '') + 'create', {
+        axios.post('/lararole/api/module/' + (id.id ? id.id + '/' : '') + 'create', {
             name: values.name,
             alias: values.alias
         }).then((response) => {
-            window.location = "/module"
+            window.location = "/lararole/module"
         })
     };
 
@@ -97,12 +97,12 @@ function Create(props) {
         <div>
             <Breadcrumb style={{margin: '16px 0'}}>
                 <Breadcrumb.Item>
-                    <Link to="/">
+                    <Link to="/lararole">
                         <HomeOutlined/> Home
                     </Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                    <Link to="/module">
+                    <Link to="/lararole/module">
                         <DeploymentUnitOutlined/> Module
                     </Link>
                 </Breadcrumb.Item>

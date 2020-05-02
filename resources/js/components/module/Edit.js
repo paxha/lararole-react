@@ -42,7 +42,7 @@ const EditModuleForm = (id) => {
     const [alias, setAlias] = useState(null);
 
     useEffect(() => {
-        axios.get('/api/module/' + id.id + '/edit').then((response) => {
+        axios.get('/lararole/api/module/' + id.id + '/edit').then((response) => {
             setName(response.data.module.name);
             setAlias(response.data.module.alias);
         });
@@ -52,11 +52,11 @@ const EditModuleForm = (id) => {
     const [form] = Form.useForm();
 
     const onFinish = values => {
-        axios.put('/api/module/' + id.id + '/update', {
+        axios.put('/lararole/api/module/' + id.id + '/update', {
             name: name,
             alias: alias
         }).then((response) => {
-            window.location = "/module"
+            window.location = "/lararole/module"
         })
     };
 
@@ -116,12 +116,12 @@ function Edit(props) {
         <div>
             <Breadcrumb style={{margin: '16px 0'}}>
                 <Breadcrumb.Item>
-                    <Link to="/">
+                    <Link to="/lararole">
                         <HomeOutlined/> Home
                     </Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                    <Link to="/module">
+                    <Link to="/lararole/module">
                         <DeploymentUnitOutlined/> Module
                     </Link>
                 </Breadcrumb.Item>

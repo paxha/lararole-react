@@ -5,7 +5,7 @@ const {Footer} = Layout;
 
 function MyFooter() {
     return (
-        <Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+        <Footer style={{textAlign: 'center'}}>Lararole ©2020 Created by Pasha</Footer>
     );
 }
 

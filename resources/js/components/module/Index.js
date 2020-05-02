@@ -9,7 +9,7 @@ const columns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        render: (text, record) => <Link to={{pathname: '/module/' + record.id + '/edit'}}>{text}</Link>,
+        render: (text, record) => <Link to={{pathname: '/lararole/module/' + record.id + '/edit'}}>{text}</Link>,
     },
     {
         title: 'Slug',
@@ -31,17 +31,17 @@ const columns = [
         key: 'action',
         render: (text, record) => (
             <span>
-                <Link to={{pathname: '/module/' + record.id + '/create'}} style={{marginRight: 16}}>
+                <Link to={{pathname: '/lararole/module/' + record.id + '/create'}} style={{marginRight: 16}}>
                     <PlusOutlined/> New Child
                 </Link>
-                <Link to={{pathname: '/module/' + record.id + '/edit'}} style={{marginRight: 16}}>
+                <Link to={{pathname: '/lararole/module/' + record.id + '/edit'}} style={{marginRight: 16}}>
                     <EditOutlined/> Edit
                 </Link>
                 <Popconfirm
                     title="Are you sure delete this module?"
                     onConfirm={() => {
-                        axios.delete('/api/module/' + record.id + '/delete').then((response) => {
-                            window.location = '/module';
+                        axios.delete('/lararole/api/module/' + record.id + '/delete').then((response) => {
+                            window.location = '/lararole/module';
                         })
                     }}
                 >
@@ -58,7 +58,7 @@ function Index() {
     const [modules, setModules] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/modules').then((response) => {
+        axios.get('/lararole/api/modules').then((response) => {
             setModules(response.data.modules);
         });
     }, []);
@@ -107,12 +107,12 @@ function Index() {
         <div>
             <Breadcrumb style={{margin: '16px 0'}}>
                 <Breadcrumb.Item>
-                    <Link to="/">
+                    <Link to="/lararole">
                         <HomeOutlined/> Home
                     </Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                    <Link to="/module">
+                    <Link to="/lararole/module">
                         <DeploymentUnitOutlined/> Module
                     </Link>
                 </Breadcrumb.Item>
@@ -120,10 +120,10 @@ function Index() {
             <Popconfirm
                 title="Are you sure delete this module?"
                 onConfirm={() => {
-                    axios.delete('/api/modules/delete', {
+                    axios.delete('/lararole/api/modules/delete', {
                         data: {moduleIds: selectedModuleIds}
                     }).then((response) => {
-                        window.location = '/module';
+                        window.location = '/lararole/module';
                     })
                 }}
             >
@@ -133,7 +133,7 @@ function Index() {
             </Popconfirm>
 
             <Button type="primary" style={{marginBottom: 16, marginLeft: 8}}>
-                <Link to="/module/create">
+                <Link to="/lararole/module/create">
                     <PlusOutlined/> New Module
                 </Link>
             </Button>
