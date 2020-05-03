@@ -30,6 +30,7 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'module_id' => ['nullable', 'exists:modules,id'],
             'name' => ['required', 'string', 'max:255', 'unique:modules'],
             'alias' => ['required', 'string', 'max:255'],
             'icon' => ['nullable', 'string', 'max:255'],
@@ -54,39 +55,6 @@ class ModuleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param Module $module
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function storeChild(Request $request, Module $module)
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:modules'],
-            'alias' => ['required', 'string', 'max:255'],
-            'icon' => ['nullable', 'string', 'max:255'],
-        ]);
-
-        $trashedModule = Module::onlyTrashed()->whereName($request->name)->first();
-
-        if ($trashedModule) {
-            $trashedModule->restore();
-            $trashedModule->update($request->all());
-
-            return response()->json([
-                'message' => $module->name . ' successfully restored.'
-            ]);
-        }
-
-        $module = $module->children()->create($request->all());
-
-        return response()->json([
-            'message' => $module->name . ' successfully created.'
-        ], 201);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param Module $module
@@ -95,7 +63,7 @@ class ModuleController extends Controller
     public function edit(Module $module)
     {
         return response()->json([
-            'module' => $module
+            'module' => new \App\Http\Resources\Module($module)
         ]);
     }
 
@@ -109,6 +77,7 @@ class ModuleController extends Controller
     public function update(Request $request, Module $module)
     {
         $request->validate([
+            'module_id' => ['nullable', 'exists:modules,id'],
             'name' => ['required', 'string', 'max:255'],
             'alias' => ['required', 'string', 'max:255'],
             'icon' => ['nullable', 'string', 'max:255']
@@ -118,6 +87,10 @@ class ModuleController extends Controller
             $request->validate([
                 'name' => ['unique:modules']
             ]);
+        }
+
+        if (!$request->module_id) {
+            $request['module_id'] = null;
         }
 
         $module->update($request->all());
