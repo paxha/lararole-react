@@ -32,6 +32,7 @@ class ModuleController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:modules'],
             'alias' => ['required', 'string', 'max:255'],
+            'icon' => ['nullable', 'string', 'max:255'],
         ]);
 
         $trashedModule = Module::onlyTrashed()->whereName($request->name)->first();
@@ -64,6 +65,7 @@ class ModuleController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:modules'],
             'alias' => ['required', 'string', 'max:255'],
+            'icon' => ['nullable', 'string', 'max:255'],
         ]);
 
         $trashedModule = Module::onlyTrashed()->whereName($request->name)->first();
@@ -109,7 +111,7 @@ class ModuleController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'alias' => ['required', 'string', 'max:255'],
-            'order' => ['optional', 'integer']
+            'icon' => ['nullable', 'string', 'max:255']
         ]);
 
         if ($request->name !== $module->name) {

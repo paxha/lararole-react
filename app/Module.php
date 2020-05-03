@@ -12,7 +12,7 @@ class Module extends Model
     use SoftDeletes, Sluggable, HasRecursiveRelationships;
 
     protected $fillable = [
-        'name', 'alias', 'order'
+        'name', 'alias', 'icon'
     ];
 
     public function getParentKeyName()
