@@ -93,6 +93,7 @@ const columns = (setIsVisibleEditForm, setId, setName, setAlias, setIcon, setPar
 function Index() {
     const [modules, setModules] = useState([]);
     const [parentModuleId, setParentModuleId] = useState(null);
+    const [selectedModuleIds, setSelectedModuleIds] = useState([]);
 
     const [id, setId] = useState(null);
     const [name, setName] = useState(null);
@@ -104,12 +105,11 @@ function Index() {
     }, []);
 
     function loadModules() {
+        setSelectedModuleIds([]);
         axios.get('/lararole/api/modules').then((response) => {
             setModules(response.data.modules);
         });
     }
-
-    const [selectedModuleIds, setSelectedModuleIds] = useState([]);
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
